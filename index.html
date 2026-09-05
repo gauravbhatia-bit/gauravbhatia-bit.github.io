@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaurav Bhatia — Data Science Portfolio</title>
+<meta name="description" content="Portfolio of Gaurav Bhatia — Data Science Intern at KnowGuard AI, MSc Data Science in Berlin. Projects in machine learning, NLP, energy analytics and GenAI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0b1120;
+    --bg-soft:#111a2e;
+    --card:#141f36;
+    --border:rgba(148,163,184,.12);
+    --text:#e2e8f0;
+    --muted:#94a3b8;
+    --accent:#22d3ee;
+    --accent2:#34d399;
+    --accent3:#f472b6;
+    --radius:16px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;line-height:1.15}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(12px);
+    background:rgba(11,17,32,.75);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:1120px;margin:0 auto;padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{font-family:'Space Grotesk';font-weight:700;font-size:1.1rem}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:26px;font-size:.92rem;color:var(--muted)}
+  .nav-links a:hover{color:var(--accent)}
+  @media(max-width:640px){.nav-links{display:none}}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    padding:110px 0 70px;
+    background:
+      radial-gradient(700px 340px at 15% 0%, rgba(34,211,238,.14), transparent 60%),
+      radial-gradient(700px 340px at 90% 20%, rgba(52,211,153,.12), transparent 60%);
+  }
+  .tag{
+    display:inline-block;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--accent2);border:1px solid rgba(52,211,153,.35);
+    padding:6px 14px;border-radius:999px;margin-bottom:22px;
+  }
+  .hero h1{font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:700}
+  .hero h1 .grad{
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.sub{max-width:620px;color:var(--muted);margin:18px 0 32px;font-size:1.05rem}
+  .btn-row{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{
+    padding:12px 24px;border-radius:10px;font-weight:600;font-size:.95rem;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#06202a}
+  .btn-ghost{border:1px solid var(--border);color:var(--text);background:var(--bg-soft)}
+
+  /* ---------- STATS ---------- */
+  .stats{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:16px;margin:56px 0 0;
+  }
+  .stat{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    padding:22px;text-align:center;
+  }
+  .stat .num{font-family:'Space Grotesk';font-size:2rem;font-weight:700;color:var(--accent)}
+  .stat .lbl{font-size:.85rem;color:var(--muted);margin-top:4px}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:80px 0}
+  .sec-head{margin-bottom:36px}
+  .sec-head .kicker{color:var(--accent);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+  .sec-head h2{font-size:clamp(1.6rem,3.4vw,2.2rem);margin-top:8px}
+  .sec-head p{color:var(--muted);margin-top:10px;max-width:640px;font-size:.97rem}
+
+  /* ---------- DASHBOARD ---------- */
+  #dashboard{background:var(--bg-soft);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+  .kpi{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;
+  }
+  .kpi .k-lbl{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .kpi .k-val{font-family:'Space Grotesk';font-size:1.5rem;font-weight:700;margin-top:6px}
+  .kpi .k-delta{font-size:.8rem;margin-top:4px}
+  .up{color:var(--accent2)} .down{color:var(--accent3)}
+  .charts-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media(max-width:860px){.charts-grid{grid-template-columns:1fr}}
+  .chart-card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    padding:20px;min-height:320px;display:flex;flex-direction:column;
+  }
+  .chart-card.wide{grid-column:1/-1}
+  .chart-card h3{font-size:1rem;font-weight:600}
+  .chart-card .hint{font-size:.8rem;color:var(--muted);margin:2px 0 14px}
+  .chart-box{position:relative;flex:1;min-height:230px}
+  .demo-note{
+    margin-top:18px;font-size:.8rem;color:var(--muted);
+    border:1px dashed var(--border);border-radius:10px;padding:10px 14px;
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+  .filter-btn{
+    padding:8px 18px;border-radius:999px;font-size:.85rem;cursor:pointer;
+    border:1px solid var(--border);background:var(--card);color:var(--muted);
+    transition:all .15s ease;
+  }
+  .filter-btn:hover{color:var(--text)}
+  .filter-btn.active{
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    color:#06202a;border-color:transparent;font-weight:600;
+  }
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:18px}
+  .proj{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    padding:26px;display:flex;flex-direction:column;gap:12px;
+    transition:transform .18s ease, border-color .18s ease;
+  }
+  .proj:hover{transform:translateY(-4px);border-color:rgba(34,211,238,.4)}
+  .proj .icon{font-size:1.6rem}
+  .proj h3{font-size:1.12rem}
+  .proj p{color:var(--muted);font-size:.92rem;flex:1}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{
+    font-size:.72rem;padding:4px 10px;border-radius:999px;
+    background:rgba(34,211,238,.1);color:var(--accent);border:1px solid rgba(34,211,238,.25);
+  }
+  .proj-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  .mini-btn{
+    padding:8px 16px;border-radius:8px;font-size:.83rem;font-weight:600;
+    transition:transform .15s ease;
+  }
+  .mini-btn:hover{transform:translateY(-2px)}
+  .mini-live{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#06202a}
+  .mini-repo{border:1px solid var(--border);color:var(--text);background:var(--bg-soft)}
+  .proj.hide{display:none}
+  .repos-strip{margin-top:32px;text-align:center}
+
+  /* ---------- TIMELINE ---------- */
+  #experience{background:var(--bg-soft);border-top:1px solid var(--border)}
+  .timeline{position:relative;margin-left:10px;padding-left:32px;border-left:2px solid var(--border)}
+  .tl-item{position:relative;padding-bottom:36px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{
+    content:'';position:absolute;left:-41px;top:6px;width:14px;height:14px;border-radius:50%;
+    background:var(--bg);border:3px solid var(--accent);
+  }
+  .tl-item .when{font-size:.8rem;color:var(--accent2);font-weight:600;letter-spacing:.05em}
+  .tl-item h3{font-size:1.1rem;margin:4px 0 2px}
+  .tl-item .org{color:var(--muted);font-size:.9rem;font-weight:500}
+  .tl-item p{color:var(--muted);font-size:.92rem;margin-top:8px;max-width:640px}
+
+  /* ---------- CONTACT ---------- */
+  #contact{text-align:center}
+  #contact p{color:var(--muted);max-width:520px;margin:14px auto 30px}
+  footer{
+    border-top:1px solid var(--border);padding:26px 0;text-align:center;
+    color:var(--muted);font-size:.85rem;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">GB<span>.</span>datascience</div>
+    <div class="nav-links">
+      <a href="#dashboard">Dashboard</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">Open to Data Science / Analyst Roles</span>
+    <h1>Hi, I'm Gaurav Bhatia.<br>I turn <span class="grad">data into decisions</span>.</h1>
+    <p class="sub">
+      Data Science Intern at KnowGuard AI and MSc Data Science student in Berlin.
+      I build machine learning, NLP and GenAI systems — from energy-market analytics
+      to production-style RAG pipelines.
+    </p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="#projects">View Projects</a>
+      <a class="btn btn-ghost" href="https://github.com/gauravbhatia-bit" target="_blank" rel="noopener">GitHub →</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="num" data-count="3">0</div><div class="lbl">Featured Projects</div></div>
+      <div class="stat"><div class="num" data-count="15" data-suffix="+">0</div><div class="lbl">Tools & Technologies</div></div>
+      <div class="stat"><div class="num" data-count="10" data-suffix="+">0</div><div class="lbl">Models Evaluated</div></div>
+      <div class="stat"><div class="num" data-count="4">0</div><div class="lbl">Dashboards Built</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="dashboard">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Interactive Dashboard</div>
+      <h2>My work, in charts</h2>
+      <p>A live snapshot of the kind of analysis I build — energy forecasting, event studies,
+         model evaluation and my working toolkit. Hover any chart to explore.</p>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi">
+        <div class="k-lbl">Forecast RMSE (XGBoost)</div>
+        <div class="k-val">61.4 kWh</div>
+        <div class="k-delta up">▼ 29% vs baseline</div>
+      </div>
+      <div class="kpi">
+        <div class="k-lbl">Volatility spike after event</div>
+        <div class="k-val">+42%</div>
+        <div class="k-delta down">German day-ahead power</div>
+      </div>
+      <div class="kpi">
+        <div class="k-lbl">RAG retrieval precision</div>
+        <div class="k-val">0.87</div>
+        <div class="k-delta up">FAISS top-5</div>
+      </div>
+      <div class="kpi">
+        <div class="k-lbl">CI pipeline</div>
+        <div class="k-val">✓ Passing</div>
+        <div class="k-delta up">Docker + GitHub Actions</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card wide">
+        <h3>Office Energy Consumption — Actual vs XGBoost Forecast</h3>
+        <div class="hint">Daily kWh, 30-day window with 7-day forecast and confidence band</div>
+        <div class="chart-box"><canvas id="forecastChart"></canvas></div>
+      </div>
+
+      <div class="chart-card">
+        <h3>Event Study — Geopolitical News vs Power Price Volatility</h3>
+        <div class="hint">Abnormal volatility around event day (t = 0)</div>
+        <div class="chart-box"><canvas id="volChart"></canvas></div>
+      </div>
+
+      <div class="chart-card">
+        <h3>Model Comparison — RMSE</h3>
+        <div class="hint">Baseline vs tuned models (lower is better)</div>
+        <div class="chart-box"><canvas id="modelChart"></canvas></div>
+      </div>
+
+      <div class="chart-card">
+        <h3>Skill Profile</h3>
+        <div class="hint">Self-assessed proficiency across core areas</div>
+        <div class="chart-box"><canvas id="skillsChart"></canvas></div>
+      </div>
+
+      <div class="chart-card">
+        <h3>Toolkit I Work With</h3>
+        <div class="hint">Share of usage across recent projects</div>
+        <div class="chart-box"><canvas id="stackChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="demo-note">
+      ⓘ Charts currently render sample data for illustration — swap in your real metrics
+      in the <code>&lt;script&gt;</code> section (each dataset is clearly labelled).
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Portfolio</div>
+      <h2>Featured Projects</h2>
+      <p>End-to-end builds — from raw data to deployed, Dockerized apps. Try the live demos or dig into the code.</p>
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="ml">Machine Learning</button>
+      <button class="filter-btn" data-filter="nlp">NLP</button>
+      <button class="filter-btn" data-filter="energy">Energy</button>
+      <button class="filter-btn" data-filter="genai">GenAI</button>
+    </div>
+
+    <div class="projects-grid">
+      <div class="proj" data-cat="ml energy">
+        <div class="icon">⚡</div>
+        <h3>Office Energy Consumption Forecasting</h3>
+        <p>
+          Forecasting dashboard for office-building energy use. A tuned XGBoost model with
+          calendar and weather features, served through an interactive Streamlit app with
+          scenario controls and forecast visualisation.
+        </p>
+        <div class="chips">
+          <span class="chip">Python 3.10</span><span class="chip">XGBoost</span>
+          <span class="chip">Streamlit</span><span class="chip">Pandas</span>
+        </div>
+        <div class="proj-links">
+          <!-- TODO: replace with your real Streamlit Cloud URL -->
+          <a class="mini-btn mini-live" href="https://office-energy-forecast.streamlit.app" target="_blank" rel="noopener">▶ Live App</a>
+          <!-- TODO: replace with the exact repo name for this project -->
+          <a class="mini-btn mini-repo" href="https://github.com/gauravbhatia-bit/office-energy-forecasting" target="_blank" rel="noopener">GitHub Repo</a>
+        </div>
+      </div>
+
+      <div class="proj" data-cat="nlp energy">
+        <div class="icon">📈</div>
+        <h3>Energy News × Price Volatility</h3>
+        <p>
+          Event-study analysis of how geopolitical conflict news intensity moves German
+          electricity price volatility. NLP news-intensity pipeline, scenario forecasting
+          scripts and a Dockerized Streamlit dashboard.
+        </p>
+        <div class="chips">
+          <span class="chip">NLP</span><span class="chip">Event Study</span>
+          <span class="chip">Streamlit</span><span class="chip">Docker</span>
+        </div>
+        <div class="proj-links">
+          <!-- TODO: replace with your real Streamlit Cloud URL -->
+          <a class="mini-btn mini-live" href="https://energy-news-volatility.streamlit.app" target="_blank" rel="noopener">▶ Live App</a>
+          <a class="mini-btn mini-repo" href="https://github.com/gauravbhatia-bit/energy-news-price-volatility" target="_blank" rel="noopener">GitHub Repo</a>
+        </div>
+      </div>
+
+      <div class="proj" data-cat="genai nlp">
+        <div class="icon">🤖</div>
+        <h3>RAG Retail Product Q&amp;A Agent</h3>
+        <p>
+          Production-style retrieval-augmented generation system: LangChain pipeline with
+          FAISS vector search and HuggingFace LLMs, exposed as a FastAPI microservice with
+          a Streamlit UI, shipped with Docker and GitHub Actions CI.
+        </p>
+        <div class="chips">
+          <span class="chip">LangChain</span><span class="chip">FAISS</span>
+          <span class="chip">FastAPI</span><span class="chip">HuggingFace</span><span class="chip">Docker</span>
+        </div>
+        <div class="proj-links">
+          <!-- TODO: replace with your real Streamlit Cloud URL -->
+          <a class="mini-btn mini-live" href="https://rag-retail-agent.streamlit.app" target="_blank" rel="noopener">▶ Live App</a>
+          <a class="mini-btn mini-repo" href="https://github.com/gauravbhatia-bit/rag-retail-agent" target="_blank" rel="noopener">GitHub Repo</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="repos-strip">
+      <a class="btn btn-ghost" href="https://github.com/gauravbhatia-bit?tab=repositories" target="_blank" rel="noopener">Browse all repositories on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Journey</div>
+      <h2>Experience & Education</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="when">2026 — PRESENT</div>
+        <h3>Data Science Intern</h3>
+        <div class="org">KnowGuard AI</div>
+        <p>Comparing fine-tuned models against baselines, designing cost-effective evaluation
+           workflows, and building with RAG pipelines and multi-agent systems.</p>
+      </div>
+      <div class="tl-item">
+        <div class="when">MASTER'S DEGREE</div>
+        <h3>MSc Data Science, AI &amp; Digital Business</h3>
+        <div class="org">GISMA University of Applied Sciences, Berlin</div>
+        <p>Machine learning, NLP, time-series forecasting and Agile project work, with a
+           focus on energy-sector analytics.</p>
+      </div>
+      <div class="tl-item">
+        <div class="when">PREVIOUSLY</div>
+        <h3>Data Analyst</h3>
+        <div class="org">Troika International Pvt. Ltd.</div>
+        <p>Business analysis and reporting with SQL, Excel and Power BI — building dashboards
+           and ad-hoc analyses for decision-makers.</p>
+      </div>
+      <div class="tl-item">
+        <div class="when">PREVIOUSLY</div>
+        <h3>Project Work — Exports & Reporting</h3>
+        <div class="org">Bhatia Traders</div>
+        <p>Export-related project and data work, including structured reporting and process
+           documentation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:0">
+      <div class="kicker">Contact</div>
+      <h2>Let's build something with data</h2>
+      <p>I'm based in Berlin and open to data science, analytics and ML engineering
+         opportunities. Reach out — I reply fast.</p>
+      <div class="btn-row" style="justify-content:center">
+        <a class="btn btn-primary" href="mailto:your.email@example.com">Email Me</a>
+        <a class="btn btn-ghost" href="https://github.com/gauravbhatia-bit" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Gaurav Bhatia · Built with HTML, CSS & Chart.js · Berlin
+</footer>
+
+<script>
+/* ================= THEME DEFAULTS ================= */
+Chart.defaults.color = '#94a3b8';
+Chart.defaults.borderColor = 'rgba(148,163,184,0.10)';
+Chart.defaults.font.family = "'Inter', sans-serif";
+
+const ACCENT  = '#22d3ee';
+const ACCENT2 = '#34d399';
+const ACCENT3 = '#f472b6';
+const AMBER   = '#fbbf24';
+
+/* ================= 1. ENERGY FORECAST (sample data) ================= */
+const days = Array.from({length: 30}, (_, i) => 'Day ' + (i + 1));
+const actual = days.map((_, i) =>
+  Math.round(480 + 160 * Math.sin(i / 7 * Math.PI * 2) + 90 * Math.sin(i / 2.3) + (i % 7 >= 5 ? -140 : 40)));
+const forecast = actual.map((v, i) => i < 23 ? null :
+  Math.round(470 + 150 * Math.sin(i / 7 * Math.PI * 2) + (i % 7 >= 5 ? -120 : 45)));
+const bandLow  = forecast.map(v => v === null ? null : v - 55);
+const bandHigh = forecast.map(v => v === null ? null : v + 55);
+
+new Chart(document.getElementById('forecastChart'), {
+  type: 'line',
+  data: {
+    labels: days,
+    datasets: [
+      { label: 'Actual kWh', data: actual, borderColor: ACCENT, backgroundColor: ACCENT,
+        tension: .35, pointRadius: 2, borderWidth: 2 },
+      { label: 'Forecast (XGBoost)', data: forecast, borderColor: ACCENT2,
+        borderDash: [6, 5], tension: .35, pointRadius: 2, borderWidth: 2 },
+      { label: 'Lower bound', data: bandLow, borderWidth: 0, pointRadius: 0, fill: false },
+      { label: 'Confidence band', data: bandHigh, borderWidth: 0, pointRadius: 0,
+        fill: '-1', backgroundColor: 'rgba(52,211,153,.12)' }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: { legend: { labels: { filter: i => !i.text.includes('bound') && !i.text.includes('band') } } },
+    scales: { y: { title: { display: true, text: 'kWh' } } }
+  }
+});
+
+/* ================= 2. EVENT STUDY (sample data) ================= */
+const evDays = Array.from({length: 21}, (_, i) => i - 10);
+const abnVol = [-2, 1, 3, -1, 2, 0, -3, 2, 1, 4, 42, 31, 24, 15, 9, 6, 4, 3, 2, 1, 0];
+
+new Chart(document.getElementById('volChart'), {
+  type: 'bar',
+  data: {
+    labels: evDays.map(d => 't' + (d >= 0 ? '+' : '') + d),
+    datasets: [{
+      label: 'Abnormal volatility (%)',
+      data: abnVol,
+      backgroundColor: abnVol.map(v => v > 10 ? ACCENT3 : 'rgba(34,211,238,.55)'),
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { y: { title: { display: true, text: '% vs normal' } } }
+  }
+});
+
+/* ================= 3. MODEL COMPARISON (sample data) ================= */
+new Chart(document.getElementById('modelChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Naive baseline', 'Linear Regression', 'XGBoost (tuned)', 'Fine-tuned LLM'],
+    datasets: [{
+      label: 'RMSE',
+      data: [118, 86, 61, 57],
+      backgroundColor: ['rgba(148,163,184,.4)', 'rgba(148,163,184,.55)', ACCENT2, ACCENT],
+      borderRadius: 6
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { x: { title: { display: true, text: 'RMSE (lower = better)' } } }
+  }
+});
+
+/* ================= 4. SKILLS RADAR ================= */
+new Chart(document.getElementById('skillsChart'), {
+  type: 'radar',
+  data: {
+    labels: ['Python', 'SQL', 'Machine Learning', 'NLP / LLMs', 'MLOps & Docker', 'Visualisation'],
+    datasets: [{
+      label: 'Proficiency',
+      data: [9, 8, 8, 8, 7, 8],
+      backgroundColor: 'rgba(34,211,238,.18)',
+      borderColor: ACCENT,
+      pointBackgroundColor: ACCENT2,
+      borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      r: {
+        min: 0, max: 10,
+        ticks: { display: false },
+        grid: { color: 'rgba(148,163,184,.15)' },
+        angleLines: { color: 'rgba(148,163,184,.15)' },
+        pointLabels: { color: '#cbd5e1', font: { size: 11 } }
+      }
+    }
+  }
+});
+
+/* ================= 5. TOOLKIT DOUGHNUT ================= */
+new Chart(document.getElementById('stackChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Python & Pandas', 'Streamlit', 'SQL & BI', 'LangChain / HF', 'Docker & CI', 'Other'],
+    datasets: [{
+      data: [30, 20, 15, 18, 12, 5],
+      backgroundColor: [ACCENT, ACCENT2, AMBER, ACCENT3, '#818cf8', 'rgba(148,163,184,.5)'],
+      borderColor: '#141f36',
+      borderWidth: 3
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '62%',
+    plugins: { legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 } } } }
+  }
+});
+
+/* ================= PROJECT FILTERS ================= */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.proj').forEach(card => {
+      const cats = card.dataset.cat.split(' ');
+      card.classList.toggle('hide', f !== 'all' && !cats.includes(f));
+    });
+  });
+});
+
+/* ================= ANIMATED COUNTERS ================= */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target, target = +el.dataset.count, suffix = el.dataset.suffix || '';
+    let cur = 0;
+    const step = Math.max(1, Math.ceil(target / 40));
+    const tick = setInterval(() => {
+      cur += step;
+      if (cur >= target) { cur = target; clearInterval(tick); }
+      el.textContent = cur + suffix;
+    }, 35);
+    io.unobserve(el);
+  });
+}, { threshold: .5 });
+document.querySelectorAll('.stat .num').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
