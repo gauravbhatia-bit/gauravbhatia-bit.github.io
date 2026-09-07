@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaurav Bhatia — Data Scientist, Berlin</title>
+<meta name="description" content="Gaurav Bhatia — data scientist in Berlin. Energy forecasting, NLP and GenAI projects, with live apps you can open and code you can read.">
+<meta name="theme-color" content="#0b1120">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gaurav Bhatia — Data Scientist, Berlin">
+<meta property="og:description" content="Energy forecasting, NLP and GenAI — live apps you can open and code you can read.">
+<meta property="og:url" content="https://gauravbhatia-bit.github.io/">
+<meta property="og:image" content="https://gauravbhatia-bit.github.io/preview.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1120'/%3E%3Cpath d='M5 22 L12 14 L18 19 L27 8' stroke='%2322d3ee' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+
+<style>
+  :root{
+    --bg:#0b1120; --bg-soft:#101a2e; --card:#141f36; --card-hi:#1a2743;
+    --border:rgba(148,163,184,.14); --border-str:rgba(148,163,184,.28);
+    --text:#e6edf7; --muted:#94a3b8;
+    --accent:#22d3ee; --accent2:#34d399; --accent3:#f472b6;
+    --accent-ink:#06202a; --grid:rgba(148,163,184,.07);
+    --r:14px; --r-sm:9px; --shadow:0 1px 0 rgba(255,255,255,.03) inset;
+  }
+  :root[data-theme="light"]{
+    --bg:#f6f8fb; --bg-soft:#eef2f8; --card:#ffffff; --card-hi:#f4f7fb;
+    --border:rgba(15,23,42,.11); --border-str:rgba(15,23,42,.22);
+    --text:#0f172a; --muted:#55627a;
+    --accent:#0e7f97; --accent2:#047857; --accent3:#be185d;
+    --accent-ink:#ffffff; --grid:rgba(15,23,42,.06);
+    --shadow:0 1px 2px rgba(15,23,42,.05);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:82px}
+  body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);
+       line-height:1.62;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+  h1,h2,h3{line-height:1.18;letter-spacing:-.018em;font-weight:600}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;cursor:pointer;background:none;border:none}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  .mono{font-family:'IBM Plex Mono',ui-monospace,monospace;font-feature-settings:"tnum"}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+  .skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--accent);color:var(--accent-ink);
+        padding:10px 16px;border-radius:0 0 8px 0;font-weight:600}
+  .skip:focus{left:0}
+
+  #progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:120;
+            background:linear-gradient(90deg,var(--accent),var(--accent2))}
+  nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 82%,transparent);
+      backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+  .nav-inner{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;
+             justify-content:space-between;gap:16px}
+  .logo{display:flex;align-items:center;gap:9px;font-weight:600;font-size:1rem;letter-spacing:-.02em}
+  .logo svg{width:22px;height:22px;flex:none}
+  .nav-links{display:flex;gap:4px;align-items:center}
+  .nav-links a{padding:7px 12px;border-radius:8px;font-size:.9rem;color:var(--muted);transition:color .15s,background .15s}
+  .nav-links a:hover{color:var(--text);background:var(--card)}
+  .nav-links a.current{color:var(--accent);background:var(--card)}
+  .nav-tools{display:flex;align-items:center;gap:8px}
+  .icon-btn{width:36px;height:36px;display:grid;place-items:center;border-radius:9px;border:1px solid var(--border);
+            background:var(--card);color:var(--muted);transition:color .15s,border-color .15s}
+  .icon-btn:hover{color:var(--accent);border-color:var(--border-str)}
+  #menuBtn{display:none}
+  #mobileNav{display:none;border-top:1px solid var(--border);padding:8px 24px 16px}
+  #mobileNav a{display:block;padding:11px 4px;color:var(--muted);border-bottom:1px solid var(--border)}
+  #mobileNav a:last-child{border-bottom:none}
+  @media(max-width:860px){.nav-links{display:none}#menuBtn{display:grid}#mobileNav.open{display:block}}
+
+  .hero{padding:80px 0 56px;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:48px 48px;
+    mask-image:radial-gradient(660px 330px at 20% 20%,#000,transparent 78%);
+    -webkit-mask-image:radial-gradient(660px 330px at 20% 20%,#000,transparent 78%)}
+  .hero .wrap{position:relative;z-index:1}
+  .avail{display:inline-flex;align-items:center;gap:9px;font-size:.85rem;color:var(--muted);
+         border:1px solid var(--border);background:var(--card);padding:6px 14px;border-radius:999px;margin-bottom:24px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--accent2);flex:none;
+       box-shadow:0 0 0 3px color-mix(in srgb,var(--accent2) 22%,transparent)}
+  .hero h1{font-size:clamp(2rem,4.5vw,3rem);font-weight:700;max-width:18ch}
+  .hero .deck{max-width:62ch;color:var(--muted);margin:20px 0 28px;font-size:1.04rem}
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:var(--r-sm);
+       font-weight:600;font-size:.93rem;border:1px solid transparent;transition:filter .15s,border-color .15s}
+  .btn-primary{background:var(--accent);color:var(--accent-ink)}
+  .btn-primary:hover{filter:brightness(1.08)}
+  .btn-ghost{border-color:var(--border);background:var(--card);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--border-str)}
+  .btn svg{width:16px;height:16px;flex:none}
+
+  .marks{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-top:48px;
+         border:1px solid var(--border);border-radius:var(--r);background:var(--card);overflow:hidden}
+  .mark{padding:18px 20px;border-right:1px solid var(--border)}
+  .mark:last-child{border-right:none}
+  @media(max-width:660px){.mark{border-right:none;border-bottom:1px solid var(--border)}.mark:last-child{border-bottom:none}}
+  .mark .num{font-family:'IBM Plex Mono',monospace;font-size:1.7rem;font-weight:600;color:var(--accent);font-feature-settings:"tnum"}
+  .mark .lbl{font-size:.83rem;color:var(--muted);margin-top:2px}
+
+  section{padding:72px 0}
+  .sec-head{margin-bottom:28px;max-width:66ch}
+  .sec-head h2{font-size:clamp(1.45rem,3vw,1.95rem)}
+  .sec-head p{color:var(--muted);margin-top:10px;font-size:.97rem}
+  .band{background:var(--bg-soft);border-block:1px solid var(--border)}
+
+  /* now feed */
+  #now{padding:44px 0}
+  .feed{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px}
+  .feed-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;
+             box-shadow:var(--shadow);border-left:2px solid var(--accent2)}
+  .feed-item .when{font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--accent2)}
+  .feed-item h3{font-size:.99rem;margin:6px 0 5px}
+  .feed-item p{font-size:.88rem;color:var(--muted)}
+
+  /* lab */
+  .notice{display:flex;gap:10px;align-items:flex-start;background:color-mix(in srgb,var(--accent) 8%,transparent);
+          border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);border-radius:var(--r-sm);
+          padding:11px 14px;font-size:.86rem;margin-bottom:20px}
+  .notice svg{width:16px;height:16px;flex:none;margin-top:3px;color:var(--accent)}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:16px}
+  .kpi{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow)}
+  .kpi .k-lbl{font-size:.79rem;color:var(--muted)}
+  .kpi .k-val{font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:600;margin-top:5px;font-feature-settings:"tnum"}
+  .kpi .k-sub{font-size:.78rem;margin-top:3px;color:var(--muted)}
+  .up{color:var(--accent2)}.down{color:var(--accent3)}
+  .charts-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:14px}
+  @media(max-width:940px){.charts-grid{grid-template-columns:1fr}}
+  .chart-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;
+              display:flex;flex-direction:column;box-shadow:var(--shadow)}
+  .chart-card h3{font-size:.97rem}
+  .chart-card .hint{font-size:.81rem;color:var(--muted);margin:3px 0 12px}
+  .chart-box{position:relative;flex:1;min-height:250px}
+  .card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+  .seg{display:inline-flex;border:1px solid var(--border);border-radius:999px;padding:3px;background:var(--bg-soft);gap:2px}
+  .seg button{padding:5px 13px;border-radius:999px;font-size:.79rem;color:var(--muted);transition:background .15s,color .15s}
+  .seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:600}
+  .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;
+            padding:14px 0 4px;margin-top:14px;border-top:1px solid var(--border)}
+  .ctrl label{display:flex;justify-content:space-between;font-size:.81rem;color:var(--muted);margin-bottom:7px;gap:10px}
+  .ctrl label b{font-family:'IBM Plex Mono',monospace;color:var(--text);font-weight:500}
+  input[type=range]{width:100%;accent-color:var(--accent);height:20px;cursor:pointer}
+  .reset{font-size:.82rem;color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+
+  /* projects */
+  .toolbar{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .search{display:flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--border);
+          border-radius:var(--r-sm);padding:9px 13px;min-width:240px;flex:1;max-width:330px}
+  .search svg{width:15px;height:15px;color:var(--muted);flex:none}
+  .search input{background:none;border:none;color:var(--text);font-size:.9rem;width:100%;outline:none}
+  .filters{display:flex;gap:8px;flex-wrap:wrap}
+  .filter-btn{padding:8px 15px;border-radius:999px;font-size:.84rem;border:1px solid var(--border);
+              background:var(--card);color:var(--muted);transition:color .15s,border-color .15s,background .15s}
+  .filter-btn:hover{color:var(--text);border-color:var(--border-str)}
+  .filter-btn[aria-pressed="true"],.filter-btn[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);
+              border-color:transparent;font-weight:600}
+  .filter-btn .n{opacity:.65;font-family:'IBM Plex Mono',monospace;font-size:.76rem;margin-left:6px}
+  .count-line{font-size:.84rem;color:var(--muted);margin-bottom:20px;font-family:'IBM Plex Mono',monospace}
+
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+  .proj{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;
+        display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);transition:border-color .18s}
+  .proj:hover{border-color:var(--border-str)}
+  .proj.featured{border-color:color-mix(in srgb,var(--accent2) 45%,transparent)}
+  .proj-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .domain{font-size:.74rem;color:var(--muted)}
+  .status{font-size:.71rem;padding:3px 9px;border-radius:999px;border:1px solid var(--border);color:var(--muted);white-space:nowrap}
+  .status.live{color:var(--accent2);border-color:color-mix(in srgb,var(--accent2) 42%,transparent)}
+  .proj h3{font-size:1.04rem}
+  .proj>p{color:var(--muted);font-size:.9rem}
+  .fact{font-size:.86rem;border-left:2px solid var(--accent);padding-left:11px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-size:.72rem;padding:3px 9px;border-radius:6px;background:var(--card-hi);color:var(--muted);border:1px solid var(--border)}
+  .proj-links{display:flex;gap:9px;flex-wrap:wrap;margin-top:auto;padding-top:8px;align-items:center}
+  .mini-btn{padding:8px 14px;border-radius:var(--r-sm);font-size:.82rem;font-weight:600;border:1px solid transparent;
+            transition:filter .15s,border-color .15s}
+  .mini-live{background:var(--accent);color:var(--accent-ink)}
+  .mini-live:hover{filter:brightness(1.08)}
+  .mini-repo{border-color:var(--border);color:var(--text);background:var(--bg-soft)}
+  .mini-repo:hover{border-color:var(--border-str)}
+  .empty{grid-column:1/-1;text-align:center;padding:44px 20px;color:var(--muted);
+         border:1px dashed var(--border-str);border-radius:var(--r)}
+  mark{background:color-mix(in srgb,var(--accent) 30%,transparent);color:inherit;border-radius:3px;padding:0 2px}
+
+  /* toolkit */
+  .kit{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+  .kit-group{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow)}
+  .kit-group h3{font-size:.92rem;margin-bottom:12px;color:var(--accent)}
+  .cert{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--border);
+        border-radius:var(--r);padding:16px 18px;margin-top:14px;box-shadow:var(--shadow)}
+  .cert .mark-ms{display:grid;grid-template-columns:1fr 1fr;width:20px;height:20px;gap:2px;flex:none;margin-top:3px}
+  .cert .mark-ms i{display:block;border-radius:1px}
+  .cert h3{font-size:.93rem}
+  .cert p{font-size:.83rem;color:var(--muted);margin-top:2px}
+
+  /* timeline */
+  .timeline{position:relative;padding-left:30px;border-left:1px solid var(--border-str)}
+  .tl-item{position:relative;padding-bottom:30px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{content:'';position:absolute;left:-36px;top:7px;width:11px;height:11px;border-radius:50%;
+                   background:var(--bg);border:2px solid var(--accent)}
+  .tl-item.edu::before{border-color:var(--muted)}
+  .tl-item .when{font-family:'IBM Plex Mono',monospace;font-size:.77rem;color:var(--muted)}
+  .tl-item h3{font-size:1.02rem;margin:5px 0 2px}
+  .tl-item .org{color:var(--accent2);font-size:.87rem}
+  .tl-item p{color:var(--muted);font-size:.89rem;margin-top:7px;max-width:68ch}
+
+  #contact .wrap{max-width:640px;text-align:center}
+  #contact p{color:var(--muted);margin:12px auto 24px}
+  .copy-row{display:flex;justify-content:center;margin-top:14px}
+  .copy-btn{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:.85rem;
+            border:1px dashed var(--border-str);border-radius:var(--r-sm);padding:9px 14px;color:var(--muted);
+            transition:color .15s,border-color .15s}
+  .copy-btn:hover{color:var(--accent);border-color:var(--accent)}
+  footer{border-top:1px solid var(--border);padding:26px 0;text-align:center;color:var(--muted);font-size:.83rem}
+
+  #toTop{position:fixed;right:22px;bottom:22px;z-index:90;width:42px;height:42px;opacity:0;visibility:hidden;
+         transition:opacity .2s,visibility .2s;background:var(--card);border:1px solid var(--border-str)}
+  #toTop.show{opacity:1;visibility:visible}
+  #toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,14px);z-index:150;background:var(--accent);
+         color:var(--accent-ink);font-weight:600;font-size:.86rem;padding:10px 18px;border-radius:999px;opacity:0;
+         pointer-events:none;transition:opacity .2s,transform .2s}
+  #toast.show{opacity:1;transform:translate(-50%,0)}
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#top">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="currentColor" opacity=".1"/><path d="M5 22 L12 14 L18 19 L27 8" stroke="var(--accent)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Gaurav Bhatia
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#now">Now</a>
+      <a href="#lab">Forecast lab</a>
+      <a href="#projects">Projects</a>
+      <a href="#toolkit">Toolkit</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-tools">
+      <button class="icon-btn" id="themeBtn" aria-label="Switch to light theme" title="Switch theme (T)">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path id="themeIcon" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileNav">
+    <a href="#now">Now</a><a href="#lab">Forecast lab</a><a href="#projects">Projects</a>
+    <a href="#toolkit">Toolkit</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="avail"><span class="dot"></span> Open to data science and analytics roles in Berlin</span>
+    <h1>Energy forecasting, NLP and GenAI — built end to end.</h1>
+    <p class="deck">
+      Data Science Intern at KnowGuard AI and MSc Data Science student in Berlin.
+      Most of my work lives in the German energy market: load and solar forecasting, news-driven
+      volatility modelling, and the SQL and BI plumbing underneath it.
+    </p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="#projects">See the projects</a>
+      <a class="btn btn-ghost" href="https://github.com/gauravbhatia-bit" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/gauravbhatia-bit/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+
+    <div class="marks">
+      <div class="mark"><div class="num" data-count="21">0</div><div class="lbl">Projects on GitHub</div></div>
+      <div class="mark"><div class="num" data-count="8">0</div><div class="lbl">In the energy sector</div></div>
+      <div class="mark"><div class="num" data-count="3">0</div><div class="lbl">Live apps you can open</div></div>
+      <div class="mark"><div class="num" data-count="1">0</div><div class="lbl">MSc thesis in progress</div></div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<section id="now">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2>What I'm working on now</h2></div>
+    <div class="feed">
+      <div class="feed-item reveal">
+        <div class="when">In progress</div>
+        <h3>MSc thesis — US–Iran war and German energy</h3>
+        <p>Measuring how the 2026 US–Iran conflict propagates into Germany's energy sector, using event-study methods on electricity, gas and oil markets.</p>
+      </div>
+      <div class="feed-item reveal">
+        <div class="when">Current role</div>
+        <h3>Data Science Intern, KnowGuard AI</h3>
+        <p>Comparing fine-tuned models against baselines, designing evaluation workflows, running A/B tests, and building RAG pipelines and multi-agent systems.</p>
+      </div>
+      <div class="feed-item reveal">
+        <div class="when">Current, freelance</div>
+        <h3>Time-series modelling, Croud Control</h3>
+        <p>Demand and energy forecasting through Croud's Croudie network: seasonality decomposition, forecast evaluation, reproducible Python workflows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="lab" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Forecast lab</h2>
+      <p>Two panels. The left one is a live simulation of the building-load problem I model for real — move the controls and the curve, the prediction interval and the error metric all respond. The right one counts what's actually in my repositories.</p>
+    </div>
+
+    <div class="notice reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5v.5"/></svg>
+      <div>The load curve is generated in your browser from a simplified model, so it stays explorable. It is not a result — measured RMSE, MAE and MAPE from the trained models live in each project repository.</div>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="k-lbl">In-sample RMSE</div><div class="k-val mono" id="kpiRmse">—</div><div class="k-sub" id="kpiRmseSub">vs seasonal naive</div></div>
+      <div class="kpi"><div class="k-lbl">Peak forecast day</div><div class="k-val mono" id="kpiPeak">—</div><div class="k-sub">highest day in horizon</div></div>
+      <div class="kpi"><div class="k-lbl">Horizon total</div><div class="k-val mono" id="kpiTotal">—</div><div class="k-sub">sum over forecast days</div></div>
+      <div class="kpi"><div class="k-lbl">Interval width</div><div class="k-val mono" id="kpiBand">—</div><div class="k-sub">80% prediction interval</div></div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card reveal">
+        <div class="card-head">
+          <div>
+            <h3>Building load — actual against forecast</h3>
+            <div class="hint">Daily kWh, 30 days of history plus a rolling horizon</div>
+          </div>
+          <div class="seg" role="group" aria-label="Chart view">
+            <button data-view="line" aria-pressed="true">Load</button>
+            <button data-view="residual" aria-pressed="false">Residuals</button>
+          </div>
+        </div>
+        <div class="chart-box"><canvas id="forecastChart" role="img" aria-label="Line chart of simulated daily building energy consumption with forecast and prediction interval"></canvas></div>
+        <div class="controls">
+          <div class="ctrl"><label for="sOcc">Occupancy <b><span id="vOcc">100</span>%</b></label><input type="range" id="sOcc" min="40" max="130" value="100" step="5"></div>
+          <div class="ctrl"><label for="sTemp">Outside temperature <b><span id="vTemp">12</span>°C</b></label><input type="range" id="sTemp" min="-5" max="34" value="12" step="1"></div>
+          <div class="ctrl"><label for="sHor">Forecast horizon <b><span id="vHor">7</span> d</b></label><input type="range" id="sHor" min="3" max="14" value="7" step="1"></div>
+          <div class="ctrl"><label for="sNoise">Demand volatility <b><span id="vNoise">6</span>%</b></label><input type="range" id="sNoise" min="0" max="20" value="6" step="1"></div>
+        </div>
+        <div style="margin-top:10px"><button class="reset" id="resetBtn">Reset to defaults</button></div>
+      </div>
+
+      <div class="chart-card reveal">
+        <div class="card-head">
+          <div>
+            <h3>What's in the repositories</h3>
+            <div class="hint">Counted from the 21 projects listed below</div>
+          </div>
+          <div class="seg" role="group" aria-label="Breakdown">
+            <button data-mix="method" aria-pressed="true">Method</button>
+            <button data-mix="domain" aria-pressed="false">Domain</button>
+          </div>
+        </div>
+        <div class="chart-box"><canvas id="mixChart" role="img" aria-label="Bar chart counting projects by method and by domain"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Projects</h2>
+      <p>Everything substantial from my GitHub, grouped by what it actually does. Projects can carry more than one label, so a forecasting project built on an LSTM shows under both time series and machine learning.</p>
+    </div>
+
+    <div class="toolbar reveal">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="projSearch" placeholder="Search: prophet, duckdb, faiss, solar…" aria-label="Search projects">
+      </div>
+      <div class="filters" id="filters" role="group" aria-label="Filter projects"></div>
+    </div>
+    <div class="count-line" id="countLine" aria-live="polite"></div>
+
+    <div class="projects-grid" id="grid"></div>
+
+    <div style="margin-top:28px;text-align:center" class="reveal">
+      <a class="btn btn-ghost" href="https://github.com/gauravbhatia-bit?tab=repositories" target="_blank" rel="noopener">All repositories on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<section id="toolkit" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2>Toolkit</h2><p>Grouped by the job it does. Everything here appears in a project above or in my current work.</p></div>
+    <div class="kit">
+      <div class="kit-group reveal">
+        <h3>Languages and querying</h3>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">Advanced SQL</span><span class="chip">Snowflake SQL</span>
+          <span class="chip">DuckDB</span><span class="chip">SQLite</span>
+          <span class="chip">Window functions</span><span class="chip">CTEs</span>
+        </div>
+      </div>
+      <div class="kit-group reveal">
+        <h3>Data, cloud and BI</h3>
+        <div class="chips">
+          <span class="chip">AWS</span><span class="chip">pandas</span><span class="chip">NumPy</span>
+          <span class="chip">Power BI</span><span class="chip">DAX</span><span class="chip">Star schema modelling</span>
+          <span class="chip">Excel</span><span class="chip">Plotly</span>
+        </div>
+      </div>
+      <div class="kit-group reveal">
+        <h3>Modelling</h3>
+        <div class="chips">
+          <span class="chip">XGBoost</span><span class="chip">Prophet</span><span class="chip">ARIMA</span>
+          <span class="chip">LSTM (TensorFlow/Keras)</span><span class="chip">scikit-learn</span>
+          <span class="chip">Isolation Forest</span><span class="chip">Optuna</span>
+          <span class="chip">Event study</span><span class="chip">Price elasticity</span>
+        </div>
+      </div>
+      <div class="kit-group reveal">
+        <h3>NLP and GenAI</h3>
+        <div class="chips">
+          <span class="chip">FinBERT</span><span class="chip">VADER</span><span class="chip">TF-IDF</span>
+          <span class="chip">LangChain</span><span class="chip">FAISS</span><span class="chip">Hugging Face</span>
+          <span class="chip">Gemini 2.0 Flash</span><span class="chip">RAG</span>
+        </div>
+      </div>
+      <div class="kit-group reveal">
+        <h3>Shipping</h3>
+        <div class="chips">
+          <span class="chip">Streamlit</span><span class="chip">FastAPI</span><span class="chip">Docker</span>
+          <span class="chip">GitHub Actions</span><span class="chip">Git</span>
+          <span class="chip">APScheduler</span><span class="chip">Jinja2</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cert reveal">
+      <div class="mark-ms" aria-hidden="true">
+        <i style="background:#f25022"></i><i style="background:#7fba00"></i>
+        <i style="background:#00a4ef"></i><i style="background:#ffb900"></i>
+      </div>
+      <div>
+        <h3>Introduction to Cloud Infrastructure: Describe cloud concepts</h3>
+        <p>Microsoft — completed 2 July 2026</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2>Experience and education</h2></div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="when">2026 — present</div>
+        <h3>Data Science Intern</h3>
+        <div class="org">KnowGuard AI, Berlin</div>
+        <p>Comparing fine-tuned models against baselines, designing cost-effective evaluation workflows, running A/B tests, and building with RAG pipelines and multi-agent systems.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="when">2026 — present · freelance</div>
+        <h3>Freelance Data Scientist — time-series modelling</h3>
+        <div class="org">Croud Control, Croudie Network — remote</div>
+        <p>Demand and energy forecasting delivered through Croud's on-demand network: trend and seasonality decomposition, forecast evaluation and reproducible Python workflows in ARIMA, Prophet and XGBoost.</p>
+      </div>
+      <div class="tl-item edu reveal">
+        <div class="when">Master's degree, in progress</div>
+        <h3>MSc Data Science, AI and Digital Business</h3>
+        <div class="org">GISMA University of Applied Sciences, Berlin</div>
+        <p>Machine learning, NLP, time-series forecasting and Agile project work, with a focus on energy-sector analytics. Coursework includes M507 Methods of Prediction and M508 Big Data Analytics, both built as full projects listed above.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="when">Previously</div>
+        <h3>Data Analyst</h3>
+        <div class="org">Troika International Pvt. Ltd.</div>
+        <p>Business analysis and reporting with SQL, Excel and Power BI — building dashboards and ad-hoc analyses for decision-makers.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="when">Previously</div>
+        <h3>Project work — exports and reporting</h3>
+        <div class="org">Bhatia Traders</div>
+        <p>Export-related project and data work, including structured reporting and process documentation. The sales analysis and inventory alert projects above came out of this business.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="band">
+  <div class="wrap">
+    <h2>Let's talk</h2>
+    <p>I'm in Berlin and looking for data science, analytics and ML engineering roles. Send me a note and I'll reply quickly.</p>
+    <div class="btn-row" style="justify-content:center">
+      <a class="btn btn-primary" href="mailto:gauravbhatia.gb6@gmail.com">Email me</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/gauravbhatia-bit/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn-ghost" href="https://github.com/gauravbhatia-bit" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="copy-row">
+      <button class="copy-btn" id="copyMail">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+        gauravbhatia.gb6@gmail.com
+      </button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>© 2026 Gaurav Bhatia — Berlin</footer>
+
+<button class="icon-btn" id="toTop" aria-label="Back to top">
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 20V5m0 0-6 6m6-6 6 6"/></svg>
+</button>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const $  = (s,c=document)=>c.querySelector(s);
+const $$ = (s,c=document)=>[...c.querySelectorAll(s)];
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const GH = 'https://github.com/gauravbhatia-bit/';
+
+/* =========================================================
+   PROJECT DATA — every field below comes from the repo's own
+   description or README. Nothing is invented.
+   ========================================================= */
+const CATS = {
+  ts:'Time series', ml:'Machine learning', nlp:'NLP',
+  genai:'GenAI & LLM', causal:'Causal & event study', bi:'BI, SQL & dashboards'
+};
+const DOMAINS = { energy:'Energy', retail:'Retail & pricing', mobility:'Mobility & tolling', bi:'Business analytics' };
+
+const PROJECTS = [
+  { repo:'office-energy-forecasting-dashboard', title:'Office energy consumption forecasting',
+    cats:['ts','ml'], domain:'energy',
+    live:'https://office-energy-forecasting-dashboard-byb9cixihrwm3c779d3hpv.streamlit.app/',
+    desc:'ML-powered office energy consumption forecasting with a CO₂ savings calculator, built for CleanTech and smart-building applications.',
+    fact:'XGBoost tuned with Optuna over 50 trials, served as a Streamlit app.',
+    tags:['Python 3.10','XGBoost','Optuna','Streamlit','pandas'] },
+
+  { repo:'dutch-risk-radar', title:'Dutch business risk radar — US–Iran war 2026',
+    cats:['nlp','causal'], domain:'energy',
+    live:'https://dutch-risk-radar-lu7gdrmdsmobmccabmbypw.streamlit.app/',
+    desc:'Interactive risk radar quantifying how the 2026 US–Iran conflict affects Dutch businesses and energy markets, turning geopolitical news into measurable risk signals.',
+    fact:'NLP news-intensity scoring plus event-study analytics, with escalation and de-escalation scenarios.',
+    tags:['Python','NLP','Event study','Streamlit','pandas'] },
+
+  { repo:'ecommerce-dynamic-pricing-engine', title:'E-commerce dynamic pricing engine',
+    cats:['ts','ml'], domain:'retail',
+    live:'https://gauravbhatia-bit-ecommerce-dynamic-pricing--dashboardapp-wpy0fu.streamlit.app/',
+    desc:'End-to-end algorithmic pricing engine: price elasticity per product category, RFM customer segmentation and margin-optimised price recommendations.',
+    fact:'Six rule-based pricing strategies balancing margin against volume, wrapped in a Streamlit dashboard.',
+    tags:['XGBoost','Price elasticity','RFM','Streamlit','GenAI'] },
+
+  { repo:'solar-power-forecasting', title:'Solar power generation forecasting with LSTM',
+    cats:['ts','ml'], domain:'energy',
+    desc:'LSTM network forecasting hourly German solar power generation, built for grid operators, day-ahead traders and direct marketers who are penalised when output deviates from forecast.',
+    fact:'OPSD and Open-Meteo data, chronological train/validation/test split, evaluated on RMSE, MAE and MAPE. M507 Methods of Prediction, GISMA.',
+    tags:['TensorFlow/Keras','LSTM','OPSD','Open-Meteo','Jupyter'] },
+
+  { repo:'energy-news-volatility-nlp', title:'Energy news and electricity price volatility',
+    cats:['nlp','ts','ml'], domain:'energy',
+    desc:'Can energy news intensity predict German electricity price volatility? An NLP and ML pipeline that flags likely high-volatility days on the EPEX Spot day-ahead market.',
+    fact:'FinBERT and VADER sentiment, TF-IDF trend signals and Google Trends attention feeding an XGBoost classifier on SMARD prices. M508 Big Data Analytics, GISMA.',
+    tags:['FinBERT','VADER','TF-IDF','XGBoost','SMARD','Google Trends'] },
+
+  { repo:'Germany-Energy-Load-Forecasting', title:'Germany energy load forecasting',
+    cats:['ts','ml'], domain:'energy',
+    desc:'End-to-end forecasting of daily German electricity load and solar generation from the Open Power System Data dataset.',
+    fact:'Prophet compared against an LSTM on the same series.',
+    tags:['Prophet','LSTM','OPSD','Jupyter'] },
+
+  { repo:'demand-forecasting-engine', title:'Multi-SKU demand forecasting engine',
+    cats:['ts'], domain:'retail',
+    desc:'Production-style demand forecasting engine comparing ARIMA, Prophet and XGBoost across 12 product SKUs using five years of weekly sales data.',
+    fact:'Streamlit dashboard where you pick an SKU, pick a model and change the horizon, with live MAE reported.',
+    tags:['ARIMA','Prophet','XGBoost','Streamlit'] },
+
+  { repo:'iran-energy-impact-analyzer', title:'Iran energy impact analyzer',
+    cats:['causal','ts'], domain:'energy',
+    desc:'Quantifies how the 2026 Iran–USA conflict affects German electricity, gas and oil markets, and translates those shocks into business implications for renewable-energy forecasting firms.',
+    fact:'Event-study impact analysis and scenario forecasting, containerised with Docker. Closest project to my MSc thesis.',
+    tags:['Event study','Scenario forecasting','Docker','Streamlit'] },
+
+  { repo:'rag-retail-agent', title:'RAG retail Q&A agent',
+    cats:['genai','nlp'], domain:'retail',
+    desc:'End-to-end generative AI agent for product question answering: a LangChain RAG pipeline behind a FastAPI microservice with a Streamlit front end.',
+    fact:'FAISS vector search over MiniLM embeddings, with CI/CD through GitHub Actions, Docker Hub and Kubernetes.',
+    tags:['LangChain','FAISS','FastAPI','Hugging Face','Docker','GitHub Actions'] },
+
+  { repo:'sales-intelligence-agent', title:'Sales intelligence agent',
+    cats:['genai'], domain:'bi',
+    desc:'AI-powered sales intelligence agent with tool calling over a pandas analytics layer.',
+    fact:'Built on Gemini 2.0 Flash with a FastAPI backend and Streamlit interface.',
+    tags:['Gemini 2.0 Flash','Tool calling','FastAPI','Streamlit','pandas'] },
+
+  { repo:'building-energy-efficiency-predictor', title:'Building energy efficiency predictor',
+    cats:['ml'], domain:'energy',
+    desc:'Predicts a building\u2019s heating load and energy class from its physical characteristics, to support energy-retrofit prioritisation at scale.',
+    fact:'Framed around buildings accounting for nearly 40% of EU CO₂ emissions. XGBoost tuned with Optuna, deployed as a Streamlit app.',
+    tags:['XGBoost','Optuna','Streamlit','Jupyter'] },
+
+  { repo:'solar-demand-analytics', title:'Solar demand analytics pipeline',
+    cats:['bi','ts'], domain:'energy',
+    desc:'End-to-end solar analytics for the German market: live weather for Berlin, Munich and Hamburg joined to SMARD generation data, modelled in DuckDB and published to Power BI.',
+    fact:'Summer solar output runs about 4× winter, and cloud cover above 75% cuts average generation by roughly 40%.',
+    tags:['DuckDB','Open-Meteo','SMARD','Power BI','Window functions'] },
+
+  { repo:'bi-data-quality-pipeline', title:'BI data quality and QA pipeline',
+    cats:['bi'], domain:'bi',
+    desc:'Automated data quality and QA testing for BI star-schema datasets — referential integrity, null checks, outlier detection and schema validation before data reaches a dashboard.',
+    fact:'7 tables tested across 45 checks, 41 passing, for a 91.1% quality score.',
+    tags:['Python','pandas','Star schema','QA testing'] },
+
+  { repo:'riverty-style-payments-bi-dashboard', title:'Payments BI dashboard',
+    cats:['bi'], domain:'bi',
+    desc:'Power BI dashboard analysing 100K e-commerce payment transactions — buy-now-pay-later insights, delivery performance and revenue trends.',
+    fact:'Built on DAX measures over a star-schema data model.',
+    tags:['Power BI','DAX','Star schema','Python'] },
+
+  { repo:'toll-sql-reporting-pipeline', title:'Toll revenue and traffic SQL pipeline',
+    cats:['bi'], domain:'mobility',
+    desc:'Multi-table SQL analytics pipeline on simulated German highway toll data, producing four operational reports.',
+    fact:'JOINs, CTEs, RANK window functions, and Z-score anomaly detection with STDDEV and NULLIF.',
+    tags:['DuckDB','SQL','pandas','Jupyter'] },
+
+  { repo:'toll-traffic-anomaly-detector', title:'Toll traffic anomaly detector',
+    cats:['ml','bi'], domain:'mobility',
+    desc:'Anomaly detection over six months of hourly toll traffic across five German highway segments (A1, A2, A7, A9, A100), reflecting real operational monitoring workflows.',
+    fact:'Z-score on a 3σ rolling baseline combined with an Isolation Forest at 1% contamination for high-confidence flagging.',
+    tags:['scikit-learn','Isolation Forest','Z-score','Plotly'] },
+
+  { repo:'maut-report-automation', title:'Automated weekly toll KPI reports',
+    cats:['bi'], domain:'mobility',
+    desc:'Automated weekly KPI reporting pipeline for German highway toll analytics, generating HTML reports with interactive charts every Monday morning.',
+    fact:'Scheduled with APScheduler, templated with Jinja2, queried through DuckDB.',
+    tags:['APScheduler','Jinja2','DuckDB','Plotly'] },
+
+  { repo:'marketing-funnel-dashboard', title:'Marketing funnel dashboard',
+    cats:['bi'], domain:'bi',
+    desc:'Full analytics layer for a B2C marketing funnel at a PropTech SaaS startup, tracking leads, customer acquisition cost and conversion rate across five channels.',
+    fact:'Four analytical SQL queries in SQLite feeding a dark-theme Matplotlib dashboard.',
+    tags:['SQLite','pandas','Matplotlib','Funnel analytics'] },
+
+  { repo:'bhatia-traders-sales-analysis', title:'Bhatia Traders sales analysis',
+    cats:['bi'], domain:'bi',
+    desc:'Sales and inventory analysis of a sauces and condiments business, identifying the highest-margin products and a February demand spike in chilli sauces.',
+    fact:'Found roughly 15% stockout reduction potential through moving-average forecasting.',
+    tags:['pandas','NumPy','Matplotlib','Seaborn'] },
+
+  { repo:'bhatia_traders_inventory_alert_system', title:'Inventory alert system',
+    cats:['bi'], domain:'bi',
+    desc:'SQL-based inventory alerting for the same sauces and condiments business, flagging stock positions that need action.',
+    tags:['SQL'] },
+
+  { repo:'berlin-football-analystics', title:'Berlin Bundesliga analytics',
+    cats:['bi'], domain:'bi',
+    desc:'Performance analysis of Hertha BSC and Union Berlin over the 2025/26 season, built as a visual dashboard.',
+    fact:'Union Berlin at a 55% win rate and 12% better shot efficiency; Hertha ahead on attendance at 45k average.',
+    tags:['pandas','Seaborn','Sports analytics'] }
+];
+
+/* ---------- toast ---------- */
+let toastT;
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),1800); }
+
+/* ---------- theme ---------- */
+const root=document.documentElement;
+const SUN='M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4';
+const MOON='M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z';
+function setTheme(m){
+  root.dataset.theme=m;
+  $('#themeIcon').setAttribute('d', m==='dark'?MOON:SUN);
+  $('#themeBtn').setAttribute('aria-label', m==='dark'?'Switch to light theme':'Switch to dark theme');
+  $('meta[name=theme-color]').setAttribute('content', m==='dark'?'#0b1120':'#f6f8fb');
+  restyleCharts();
+}
+$('#themeBtn').addEventListener('click',()=>setTheme(root.dataset.theme==='dark'?'light':'dark'));
+addEventListener('keydown',e=>{
+  if(e.key.toLowerCase()==='t' && !/input|textarea/i.test(e.target.tagName))
+    setTheme(root.dataset.theme==='dark'?'light':'dark');
+});
+const css=v=>getComputedStyle(root).getPropertyValue(v).trim();
+
+/* ---------- mobile nav ---------- */
+const menuBtn=$('#menuBtn'), mobileNav=$('#mobileNav');
+menuBtn.addEventListener('click',()=>{
+  const open=mobileNav.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded',open);
+  menuBtn.setAttribute('aria-label',open?'Close menu':'Open menu');
+});
+$$('#mobileNav a').forEach(a=>a.addEventListener('click',()=>{
+  mobileNav.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false');
+}));
+
+/* ---------- progress, scrollspy, back to top ---------- */
+const SECTIONS=['now','lab','projects','toolkit','experience','contact'];
+addEventListener('scroll',()=>{
+  const h=document.body.scrollHeight-innerHeight;
+  $('#progress').style.width=(h>0?scrollY/h*100:0)+'%';
+  $('#toTop').classList.toggle('show',scrollY>600);
+  let active='';
+  for(const id of SECTIONS){
+    const el=document.getElementById(id);
+    if(el && el.getBoundingClientRect().top<=140) active=id;
+  }
+  $$('#navLinks a').forEach(a=>a.classList.toggle('current',a.getAttribute('href')==='#'+active));
+},{passive:true});
+$('#toTop').addEventListener('click',()=>scrollTo({top:0,behavior:reduced?'auto':'smooth'}));
+
+/* ---------- reveal ---------- */
+const revealIO=new IntersectionObserver((es,o)=>es.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add('in'); o.unobserve(e.target); }
+}),{threshold:.1});
+function watchReveals(){ $$('.reveal:not(.in)').forEach(el=>revealIO.observe(el)); }
+watchReveals();
+
+/* ---------- counters ---------- */
+const countIO=new IntersectionObserver((es,o)=>es.forEach(e=>{
+  if(!e.isIntersecting) return;
+  const el=e.target, target=+el.dataset.count; o.unobserve(el);
+  if(reduced){ el.textContent=target; return; }
+  const t0=performance.now();
+  (function f(t){ const p=Math.min(1,(t-t0)/900);
+    el.textContent=Math.round(target*(1-Math.pow(1-p,3)));
+    if(p<1) requestAnimationFrame(f); })(performance.now());
+}),{threshold:.5});
+$$('.mark .num').forEach(el=>countIO.observe(el));
+
+/* =========================================================
+   PROJECT RENDERING, FILTERING, SEARCH
+   ========================================================= */
+const esc = s => s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function highlight(text,q){
+  if(!q) return esc(text);
+  const i=text.toLowerCase().indexOf(q);
+  if(i<0) return esc(text);
+  return esc(text.slice(0,i))+'<mark>'+esc(text.slice(i,i+q.length))+'</mark>'+esc(text.slice(i+q.length));
+}
+
+let activeCat='all', query='';
+
+function haystack(p){
+  return (p.title+' '+p.repo+' '+p.desc+' '+(p.fact||'')+' '+p.tags.join(' ')+' '+
+          p.cats.map(c=>CATS[c]).join(' ')+' '+DOMAINS[p.domain]).toLowerCase();
+}
+
+function buildFilters(){
+  const order=['all','ts','ml','nlp','genai','causal','bi'];
+  $('#filters').innerHTML=order.map(k=>{
+    const n = k==='all' ? PROJECTS.length : PROJECTS.filter(p=>p.cats.includes(k)).length;
+    const label = k==='all' ? 'All' : CATS[k];
+    return `<button class="filter-btn" data-filter="${k}" aria-pressed="${k==='all'}">${label}<span class="n">${n}</span></button>`;
+  }).join('');
+  $$('#filters .filter-btn').forEach(b=>b.addEventListener('click',()=>{
+    activeCat=b.dataset.filter;
+    $$('#filters .filter-btn').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    renderProjects();
+  }));
+}
+
+function renderProjects(){
+  const list=PROJECTS.filter(p=>
+    (activeCat==='all'||p.cats.includes(activeCat)) &&
+    (!query || haystack(p).includes(query))
+  );
+
+  $('#countLine').textContent =
+    list.length===PROJECTS.length
+      ? `${PROJECTS.length} projects`
+      : `${list.length} of ${PROJECTS.length} projects`+
+        (activeCat!=='all'?` · ${CATS[activeCat]}`:'')+(query?` · "${query}"`:'');
+
+  if(!list.length){
+    $('#grid').innerHTML=`<div class="empty">No project matches that. <button class="reset" id="clearBtn">Clear filters</button></div>`;
+    $('#clearBtn').addEventListener('click',clearAll);
+    return;
+  }
+
+  $('#grid').innerHTML=list.map(p=>`
+    <article class="proj reveal${p.live?' featured':''}">
+      <div class="proj-top">
+        <span class="domain">${DOMAINS[p.domain]}</span>
+        <span class="status${p.live?' live':''}">${p.live?'Live app':'Code'}</span>
+      </div>
+      <h3>${highlight(p.title,query)}</h3>
+      <p>${highlight(p.desc,query)}</p>
+      ${p.fact?`<div class="fact">${highlight(p.fact,query)}</div>`:''}
+      <div class="chips">${p.tags.map(t=>`<span class="chip">${highlight(t,query)}</span>`).join('')}</div>
+      <div class="proj-links">
+        ${p.live?`<a class="mini-btn mini-live" href="${p.live}" target="_blank" rel="noopener">Open app</a>`:''}
+        <a class="mini-btn mini-repo" href="${GH+p.repo}" target="_blank" rel="noopener">Code</a>
+      </div>
+    </article>`).join('');
+
+  requestAnimationFrame(()=>$$('#grid .reveal').forEach(el=>el.classList.add('in')));
+}
+
+function clearAll(){
+  activeCat='all'; query=''; $('#projSearch').value='';
+  $$('#filters .filter-btn').forEach(b=>b.setAttribute('aria-pressed',b.dataset.filter==='all'));
+  renderProjects();
+}
+
+$('#projSearch').addEventListener('input',e=>{ query=e.target.value.trim().toLowerCase(); renderProjects(); });
+buildFilters();
+renderProjects();
+
+/* ---------- copy email ---------- */
+$('#copyMail').addEventListener('click',async()=>{
+  try{ await navigator.clipboard.writeText('gauravbhatia.gb6@gmail.com'); toast('Email address copied'); }
+  catch{ toast('Copy failed — select the address manually'); }
+});
+
+/* =========================================================
+   FORECAST LAB (browser simulation, clearly labelled)
+   ========================================================= */
+const HIST=30;
+let chartsReady=false, forecastChart, mixChart, view='line', mix='method';
+
+function rng(seed){ return ()=>(seed=seed*16807%2147483647)/2147483647; }
+const dayFactor=i=>{ const d=i%7; return d===5?.58:d===6?.46:1; };
+function loadModel(i,occ,temp){
+  const base=300*(occ/100)*dayFactor(i);
+  const heat=temp<16?(16-temp)*13:0;
+  const cool=temp>22?(temp-22)*17:0;
+  return base+heat+cool+Math.sin(i/9)*22;
+}
+function simulate(){
+  const occ=+$('#sOcc').value, temp=+$('#sTemp').value,
+        hor=+$('#sHor').value, noise=+$('#sNoise').value/100;
+  const r=rng(20260907);
+  const labels=[],actual=[],fitted=[],fc=[],lo=[],hi=[];
+  for(let i=0;i<HIST;i++){
+    const m=loadModel(i,occ,temp);
+    labels.push('D'+(i+1-HIST));
+    actual.push(Math.round(m*(1+(r()-.5)*2*noise)));
+    fitted.push(Math.round(m));
+    fc.push(null); lo.push(null); hi.push(null);
+  }
+  const resid=actual.map((a,i)=>a-fitted[i]);
+  const rmse=Math.sqrt(resid.reduce((s,e)=>s+e*e,0)/HIST);
+  let sn=0,cnt=0;
+  for(let i=7;i<HIST;i++){ sn+=(actual[i]-actual[i-7])**2; cnt++; }
+  const snRmse=Math.sqrt(sn/cnt);
+  fc[HIST-1]=actual[HIST-1]; lo[HIST-1]=actual[HIST-1]; hi[HIST-1]=actual[HIST-1];
+  for(let k=1;k<=hor;k++){
+    const m=Math.round(loadModel(HIST-1+k,occ,temp));
+    const w=1.282*rmse*Math.sqrt(1+k/6);
+    labels.push('D+'+k); actual.push(null); fitted.push(null);
+    fc.push(m); lo.push(Math.round(m-w)); hi.push(Math.round(m+w));
+  }
+  const only=fc.slice(HIST);
+  return { labels,actual,fitted,fc,lo,hi,resid,rmse,snRmse,
+           peak:Math.max(...only), total:only.reduce((a,b)=>a+b,0), band:Math.round(1.282*rmse) };
+}
+const fmt=n=>n.toLocaleString('en-GB');
+
+function render(){
+  const s=simulate(), gain=(1-s.rmse/s.snRmse)*100;
+  $('#kpiRmse').textContent=s.rmse.toFixed(1)+' kWh';
+  $('#kpiRmseSub').textContent=(gain>=0?'↓ ':'↑ ')+Math.abs(gain).toFixed(0)+'% vs seasonal naive';
+  $('#kpiRmseSub').className='k-sub '+(gain>=0?'up':'down');
+  $('#kpiPeak').textContent=fmt(s.peak)+' kWh';
+  $('#kpiTotal').textContent=fmt(s.total)+' kWh';
+  $('#kpiBand').textContent='±'+fmt(s.band)+' kWh';
+  if(!chartsReady) return;
+  const ds=forecastChart.data.datasets;
+  if(view==='line'){
+    forecastChart.data.labels=s.labels;
+    ds[0].data=s.actual; ds[1].data=s.fc; ds[2].data=s.lo; ds[3].data=s.hi;
+    forecastChart.options.scales.y.title.text='kWh per day';
+  } else {
+    forecastChart.data.labels=s.labels.slice(0,HIST);
+    ds[0].data=s.resid; ds[1].data=[]; ds[2].data=[]; ds[3].data=[];
+    forecastChart.options.scales.y.title.text='Residual (actual − fitted)';
+  }
+  forecastChart.update(reduced?'none':undefined);
+}
+
+[['#sOcc','#vOcc'],['#sTemp','#vTemp'],['#sHor','#vHor'],['#sNoise','#vNoise']].forEach(([s,o])=>{
+  $(s).addEventListener('input',()=>{ $(o).textContent=$(s).value; render(); });
+});
+$('#resetBtn').addEventListener('click',()=>{
+  const d={sOcc:100,sTemp:12,sHor:7,sNoise:6};
+  for(const [id,v] of Object.entries(d)){ $('#'+id).value=v; $('#v'+id.slice(1)).textContent=v; }
+  render(); toast('Controls reset');
+});
+$$('.seg [data-view]').forEach(b=>b.addEventListener('click',()=>{
+  view=b.dataset.view;
+  $$('.seg [data-view]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  if(chartsReady){
+    const ds=forecastChart.data.datasets[0];
+    ds.label = view==='line'?'Actual':'Residual';
+    ds.type  = view==='line'?'line':'bar';
+    ds.borderRadius=3;
+  }
+  render();
+}));
+
+/* ---------- repository mix (real counts) ---------- */
+function mixData(){
+  if(mix==='method'){
+    const keys=['ts','ml','bi','nlp','genai','causal'];
+    return { labels:keys.map(k=>CATS[k]),
+             data:keys.map(k=>PROJECTS.filter(p=>p.cats.includes(k)).length) };
+  }
+  const keys=['energy','bi','retail','mobility'];
+  return { labels:keys.map(k=>DOMAINS[k]),
+           data:keys.map(k=>PROJECTS.filter(p=>p.domain===k).length) };
+}
+$$('.seg [data-mix]').forEach(b=>b.addEventListener('click',()=>{
+  mix=b.dataset.mix;
+  $$('.seg [data-mix]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  if(!chartsReady) return;
+  const d=mixData();
+  mixChart.data.labels=d.labels; mixChart.data.datasets[0].data=d.data;
+  mixChart.update();
+}));
+
+/* ---------- charts ---------- */
+function restyleCharts(){
+  if(!chartsReady) return;
+  Chart.defaults.color=css('--muted'); Chart.defaults.borderColor=css('--grid');
+  [forecastChart,mixChart].forEach(c=>{
+    Object.values(c.options.scales).forEach(sc=>{
+      sc.grid=Object.assign({},sc.grid,{color:css('--grid')});
+      sc.ticks=Object.assign({},sc.ticks,{color:css('--muted')});
+      if(sc.title) sc.title.color=css('--muted');
+    });
+  });
+  forecastChart.data.datasets[0].borderColor=css('--accent');
+  forecastChart.data.datasets[0].backgroundColor=css('--accent');
+  forecastChart.data.datasets[1].borderColor=css('--accent2');
+  mixChart.data.datasets[0].backgroundColor=css('--accent');
+  forecastChart.update('none'); mixChart.update('none');
+}
+
+function buildCharts(){
+  Chart.defaults.color=css('--muted');
+  Chart.defaults.borderColor=css('--grid');
+  Chart.defaults.font.family="'IBM Plex Sans', sans-serif";
+  Chart.defaults.animation.duration=reduced?0:550;
+
+  forecastChart=new Chart($('#forecastChart'),{
+    type:'line',
+    data:{labels:[],datasets:[
+      {label:'Actual',data:[],borderColor:css('--accent'),backgroundColor:css('--accent'),
+       borderWidth:2,tension:.32,pointRadius:0,pointHoverRadius:4},
+      {label:'Forecast',data:[],borderColor:css('--accent2'),borderWidth:2,borderDash:[6,5],
+       tension:.32,pointRadius:2,spanGaps:false},
+      {label:'lo',data:[],borderWidth:0,pointRadius:0},
+      {label:'80% interval',data:[],borderWidth:0,pointRadius:0,fill:'-1',backgroundColor:'rgba(52,211,153,.14)'}
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{labels:{filter:i=>i.text!=='lo',boxWidth:12,usePointStyle:true}},
+        tooltip:{callbacks:{label:c=>c.parsed.y==null?null:`${c.dataset.label}: ${fmt(c.parsed.y)} kWh`}}
+      },
+      scales:{x:{grid:{display:false},ticks:{maxTicksLimit:12}},
+              y:{title:{display:true,text:'kWh per day'},grid:{color:css('--grid')}}}
+    }
+  });
+
+  const d=mixData();
+  mixChart=new Chart($('#mixChart'),{
+    type:'bar',
+    data:{labels:d.labels,datasets:[{data:d.data,backgroundColor:css('--accent'),borderRadius:4}]},
+    options:{
+      indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},
+               tooltip:{callbacks:{label:c=>`${c.parsed.x} project${c.parsed.x===1?'':'s'}`}}},
+      scales:{x:{title:{display:true,text:'Number of projects'},ticks:{precision:0}},
+              y:{grid:{display:false}}}
+    }
+  });
+
+  chartsReady=true; render();
+}
+
+render();
+addEventListener('load',()=>{ if(window.Chart) buildCharts(); watchReveals(); });
+</script>
+</body>
+</html>
