@@ -288,7 +288,7 @@
     <div class="marks">
       <div class="mark"><div class="num" data-count="21">0</div><div class="lbl">Projects on GitHub</div></div>
       <div class="mark"><div class="num" data-count="8">0</div><div class="lbl">In the energy sector</div></div>
-      <div class="mark"><div class="num" data-count="3">0</div><div class="lbl">Live apps you can open</div></div>
+      <div class="mark"><div class="num" data-count="4">0</div><div class="lbl">Live apps you can open</div></div>
       <div class="mark"><div class="num" data-count="1">0</div><div class="lbl">MSc thesis in progress</div></div>
     </div>
   </div>
@@ -435,7 +435,7 @@
         <div class="chips">
           <span class="chip">FinBERT</span><span class="chip">VADER</span><span class="chip">TF-IDF</span>
           <span class="chip">LangChain</span><span class="chip">FAISS</span><span class="chip">Hugging Face</span>
-          <span class="chip">Gemini 2.0 Flash</span><span class="chip">RAG</span>
+          <span class="chip">Gemini API</span><span class="chip">RAG</span>
         </div>
       </div>
       <div class="kit-group reveal">
@@ -564,6 +564,13 @@ const PROJECTS = [
     fact:'Six rule-based pricing strategies balancing margin against volume, wrapped in a Streamlit dashboard.',
     tags:['XGBoost','Price elasticity','RFM','Streamlit','GenAI'] },
 
+  { repo:'sales-intelligence-agent', title:'Sales intelligence agent',
+    cats:['nlp','ml','genai'], domain:'bi',
+    live:'https://sales-intelligence-agent-5brv6ii7xelgzq7omewadn.streamlit.app/',
+    desc:'Ask business questions about two years of sales data in plain English. A local NLP pipeline classifies the intent, extracts year, region, product and top-N entities, and routes the question to a pandas analytics tool, with an answer and a matching chart.',
+    fact:'TF-IDF bigrams and logistic regression with confidence-based routing and a labelled holdout evaluation. Gemini can be switched on as a low-confidence fallback. FastAPI backend on Render, Streamlit front end.',
+    tags:['scikit-learn','TF-IDF','Intent classification','FastAPI','Streamlit','Gemini (optional)'] },
+
   { repo:'solar-power-forecasting', title:'Solar power generation forecasting with LSTM',
     cats:['ts','ml'], domain:'energy',
     desc:'LSTM network forecasting hourly German solar power generation, built for grid operators, day-ahead traders and direct marketers who are penalised when output deviates from forecast.',
@@ -599,12 +606,6 @@ const PROJECTS = [
     desc:'End-to-end generative AI agent for product question answering: a LangChain RAG pipeline behind a FastAPI microservice with a Streamlit front end.',
     fact:'FAISS vector search over MiniLM embeddings, with CI/CD through GitHub Actions, Docker Hub and Kubernetes.',
     tags:['LangChain','FAISS','FastAPI','Hugging Face','Docker','GitHub Actions'] },
-
-  { repo:'sales-intelligence-agent', title:'Sales intelligence agent',
-    cats:['genai'], domain:'bi',
-    desc:'AI-powered sales intelligence agent with tool calling over a pandas analytics layer.',
-    fact:'Built on Gemini 2.0 Flash with a FastAPI backend and Streamlit interface.',
-    tags:['Gemini 2.0 Flash','Tool calling','FastAPI','Streamlit','pandas'] },
 
   { repo:'building-energy-efficiency-predictor', title:'Building energy efficiency predictor',
     cats:['ml'], domain:'energy',
