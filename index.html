@@ -286,9 +286,9 @@
     </div>
 
     <div class="marks">
-      <div class="mark"><div class="num" data-count="21">0</div><div class="lbl">Projects on GitHub</div></div>
+      <div class="mark"><div class="num" data-count="22">0</div><div class="lbl">Projects on GitHub</div></div>
       <div class="mark"><div class="num" data-count="8">0</div><div class="lbl">In the energy sector</div></div>
-      <div class="mark"><div class="num" data-count="4">0</div><div class="lbl">Live apps you can open</div></div>
+      <div class="mark"><div class="num" data-count="5">0</div><div class="lbl">Live apps you can open</div></div>
       <div class="mark"><div class="num" data-count="1">0</div><div class="lbl">MSc thesis in progress</div></div>
     </div>
   </div>
@@ -364,7 +364,7 @@
         <div class="card-head">
           <div>
             <h3>What's in the repositories</h3>
-            <div class="hint">Counted from the 21 projects listed below</div>
+            <div class="hint">Counted from the 22 projects listed below</div>
           </div>
           <div class="seg" role="group" aria-label="Breakdown">
             <button data-mix="method" aria-pressed="true">Method</button>
@@ -540,7 +540,7 @@ const CATS = {
   ts:'Time series', ml:'Machine learning', nlp:'NLP',
   genai:'GenAI & LLM', causal:'Causal & event study', bi:'BI, SQL & dashboards'
 };
-const DOMAINS = { energy:'Energy', retail:'Retail & pricing', mobility:'Mobility & tolling', bi:'Business analytics' };
+const DOMAINS = { energy:'Energy', retail:'Retail & pricing', mobility:'Mobility & tolling', bi:'Business analytics', finance:'Finance education' };
 
 const PROJECTS = [
   { repo:'office-energy-forecasting-dashboard', title:'Office energy consumption forecasting',
@@ -570,6 +570,13 @@ const PROJECTS = [
     desc:'Ask business questions about two years of sales data in plain English. A local NLP pipeline classifies the intent, extracts year, region, product and top-N entities, and routes the question to a pandas analytics tool, with an answer and a matching chart.',
     fact:'TF-IDF bigrams and logistic regression with confidence-based routing and a labelled holdout evaluation. Gemini can be switched on as a low-confidence fallback. FastAPI backend on Render, Streamlit front end.',
     tags:['scikit-learn','TF-IDF','Intent classification','FastAPI','Streamlit','Gemini (optional)'] },
+
+  { repo:'fin-agent-eval', title:'Finance education agent evaluation demo',
+    cats:['genai','nlp'], domain:'finance',
+    live:'https://fin-agent-eval-chat.streamlit.app/',
+    desc:'Safety-focused finance education chatbot prototype with rule-first refusal, validated tools, hybrid retrieval and a replayable model-evaluation harness.',
+    fact:'The key-free live demo shows a fictional fee calculation and deterministic advice refusal. Live Gemini chat is intentionally disabled.',
+    tags:['Python','FastAPI','LangGraph','RAG','Streamlit','Pytest'] },
 
   { repo:'solar-power-forecasting', title:'Solar power generation forecasting with LSTM',
     cats:['ts','ml'], domain:'energy',
